@@ -1,0 +1,184 @@
+=== Source code ===
+
+// Generated with Weka 3.6.11
+//
+// This code is public domain and comes with no warranty.
+//
+// Timestamp: Mon Dec 01 00:09:43 CST 2014
+
+package weka.classifiers;
+
+import weka.core.Attribute;
+import weka.core.Capabilities;
+import weka.core.Capabilities.Capability;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.RevisionUtils;
+import weka.classifiers.Classifier;
+
+public class WekaWrapper
+  extends Classifier {
+
+  /**
+   * Returns only the toString() method.
+   *
+   * @return a string describing the classifier
+   */
+  public String globalInfo() {
+    return toString();
+  }
+
+  /**
+   * Returns the capabilities of this classifier.
+   *
+   * @return the capabilities
+   */
+  public Capabilities getCapabilities() {
+    weka.core.Capabilities result = new weka.core.Capabilities(this);
+
+    result.enable(weka.core.Capabilities.Capability.NOMINAL_ATTRIBUTES);
+    result.enable(weka.core.Capabilities.Capability.NUMERIC_ATTRIBUTES);
+    result.enable(weka.core.Capabilities.Capability.DATE_ATTRIBUTES);
+    result.enable(weka.core.Capabilities.Capability.MISSING_VALUES);
+    result.enable(weka.core.Capabilities.Capability.NOMINAL_CLASS);
+    result.enable(weka.core.Capabilities.Capability.NUMERIC_CLASS);
+    result.enable(weka.core.Capabilities.Capability.DATE_CLASS);
+    result.enable(weka.core.Capabilities.Capability.MISSING_CLASS_VALUES);
+
+    result.setMinimumNumberInstances(1);
+
+    return result;
+  }
+
+  /**
+   * only checks the data against its capabilities.
+   *
+   * @param i the training data
+   */
+  public void buildClassifier(Instances i) throws Exception {
+    // can classifier handle the data?
+    getCapabilities().testWithFail(i);
+  }
+
+  /**
+   * Classifies the given instance.
+   *
+   * @param i the instance to classify
+   * @return the classification result
+   */
+  public double classifyInstance(Instance i) throws Exception {
+    Object[] s = new Object[i.numAttributes()];
+    
+    for (int j = 0; j < s.length; j++) {
+      if (!i.isMissing(j)) {
+        if (i.attribute(j).isNominal())
+          s[j] = new String(i.stringValue(j));
+        else if (i.attribute(j).isNumeric())
+          s[j] = new Double(i.value(j));
+      }
+    }
+    
+    // set class value to missing
+    s[i.classIndex()] = null;
+    
+    return WekaClassifier.classify(s);
+  }
+
+  /**
+   * Returns the revision string.
+   * 
+   * @return        the revision
+   */
+  public String getRevision() {
+    return RevisionUtils.extract("1.0");
+  }
+
+  /**
+   * Returns only the classnames and what classifier it is based on.
+   *
+   * @return a short description
+   */
+  public String toString() {
+    return "Auto-generated classifier wrapper, based on weka.classifiers.trees.REPTree (generated with Weka 3.6.11).\n" + this.getClass().getName() + "/WekaClassifier";
+  }
+
+  /**
+   * Runs the classfier from commandline.
+   *
+   * @param args the commandline arguments
+   */
+  public static void main(String args[]) {
+    runClassifier(new WekaWrapper(), args);
+  }
+}
+
+class WekaClassifier {
+
+  public static double classify(Object [] i)
+    throws Exception {
+
+    double p = Double.NaN;
+    p = WekaClassifier.N141f3d90(i);
+    return p;
+  }
+  static double N141f3d90(Object []i) {
+    double p = Double.NaN;
+    /* Detergents_Paper */
+    if (i[6] == null) {
+      p = 1.3227272727272728;
+    } else if (((Double)i[6]).doubleValue() < 1746.5) {
+      p = 1.0289855072463767;
+    } else if (true) {
+    p = WekaClassifier.Nf046df1(i);
+    } 
+    return p;
+  }
+  static double Nf046df1(Object []i) {
+    double p = Double.NaN;
+    /* Milk */
+    if (i[3] == null) {
+      p = 1.8170731707317074;
+    } else if (((Double)i[3]).doubleValue() < 2609.0) {
+      p = 1.1818181818181819;
+    } else if (true) {
+    p = WekaClassifier.Nbd1a8e2(i);
+    } 
+    return p;
+  }
+  static double Nbd1a8e2(Object []i) {
+    double p = Double.NaN;
+    /* Detergents_Paper */
+    if (i[6] == null) {
+      p = 1.8627450980392157;
+    } else if (((Double)i[6]).doubleValue() < 3500.5) {
+    p = WekaClassifier.N11a62093(i);
+    } else if (true) {
+      p = 1.9322033898305084;
+    } 
+    return p;
+  }
+  static double N11a62093(Object []i) {
+    double p = Double.NaN;
+    /* Fresh */
+    if (i[2] == null) {
+      p = 1.6285714285714286;
+    } else if (((Double)i[2]).doubleValue() < 6629.5) {
+    p = WekaClassifier.N11a646a4(i);
+    } else if (true) {
+      p = 1.8333333333333333;
+    } 
+    return p;
+  }
+  static double N11a646a4(Object []i) {
+    double p = Double.NaN;
+    /* Milk */
+    if (i[3] == null) {
+      p = 1.1818181818181819;
+    } else if (((Double)i[3]).doubleValue() < 8199.5) {
+      p = 1.0;
+    } else if (true) {
+      p = 1.6666666666666667;
+    } 
+    return p;
+  }
+}
